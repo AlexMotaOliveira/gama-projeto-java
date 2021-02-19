@@ -1,11 +1,11 @@
-##Projeto Java - Entrega em Grupo
-###Projeto de conclusão de Curso - Parte JAVA
+## Projeto Java - Entrega em Grupo
+### Projeto de conclusão de Curso - Parte JAVA
 
 Enunciado: Os grupos deverão desenvolver um sistema que permita o Cadastro, Inclusão, Consulta e Exclusão de Alunos.
 
 
 
-###Critérios de avaliação:
+### Critérios de avaliação:
 
 
 
@@ -37,7 +37,7 @@ Conceito
 
 
 
-###Lógica de programação
+### Lógica de programação
 
 Realizar alguma funcionalidade que envolva regra de negócio com ênfase no cadastro de alunos como tratamento de campos obrigatórios, cálculo da média final, aprovação e reprovação.
 
