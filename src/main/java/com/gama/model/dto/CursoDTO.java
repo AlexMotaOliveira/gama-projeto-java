@@ -1,2 +1,7 @@
-package com.gama.model.dto;public class CursoDTO {
+package com.gama.model.dto;
+
+public class CursoDTO {
+
+
+
 }

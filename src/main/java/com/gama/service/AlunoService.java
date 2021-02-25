@@ -1,26 +1,49 @@
 package com.gama.service;
 
-import com.gama.model.Professor;
-import com.gama.repository.ProfessorRepository;
+import com.gama.model.Aluno;
+import com.gama.repository.AlunoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ProfessorService {
+public class AlunoService {
 
-    private ProfessorRepository professorRepository;
+    private AlunoRepository alunoRepository;
+    private CursoService cursoService;
 
-    public Professor creatUser(@RequestBody Professor professor){
-        return professorRepository.save(professor);
+    public Aluno criar(Aluno aluno){
+        return alunoRepository.save(aluno);
+    }
+
+    public Aluno modificar(Long id, Aluno aluno){
+        Aluno aluno1 = alunoRepository.findById(id).get();
+
+        aluno.setId(id);
+
+        return alunoRepository.save(aluno);
+    }
+
+    public void apagar(Long id){
+        alunoRepository.deleteById(id);
+    }
+
+    public Optional<Aluno> buscarId(Long id){
+        return alunoRepository.findById(id);
     }
 
 
-    public List<Professor> listAll() {
-        return professorRepository.findAll();
+    public List<Aluno> listarTodos() {
+        return alunoRepository.findAll();
+    }
+
+
+
+    private boolean validaId (Long id){
+        return alunoRepository.existsById(id);
     }
 }

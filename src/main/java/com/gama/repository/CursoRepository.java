@@ -1,7 +1,7 @@
 package com.gama.repository;
 
-import com.gama.model.Professor;
+import com.gama.model.Curso;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProfessorRepository extends JpaRepository<Professor, Long> {
+public interface CursoRepository extends JpaRepository<Curso, Long> {
 }

@@ -1,21 +1,38 @@
 package com.gama.controller;
 
 
-import com.gama.model.Aluno;
-import com.gama.repository.AlunoRepository;
+import com.gama.model.Curso;
+import com.gama.model.Disciplina;
+import com.gama.service.CursoService;
+import com.gama.service.DisciplinaService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/v1/aluno")
-public class AlunoController {
+import java.util.List;
 
-    @Autowired
-    public AlunoRepository alunoRepository;
+@RestController
+@RequestMapping("/api/v1/curso")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+public class CursoController {
+
+
+    public CursoService cursoService;
+    public DisciplinaService disciplinaService;
+
 
     @PostMapping
-    public ResponseEntity<Aluno> salvar (@RequestBody Aluno aluno){
-            return  ResponseEntity.ok(alunoRepository.save(aluno));
+    public Curso save (@RequestBody Curso curso){
+        return cursoService.salvar(curso);
+    }
+
+    @PostMapping("/{id}/disciplinas")
+    public Disciplina saveDisciplina (@PathVariable Long id,@RequestBody Disciplina disciplina){
+        return disciplinaService.salvar(disciplina);
+    }
+
+    @GetMapping
+    public List<Curso> listAll(){
+        return cursoService.listAll();
     }
 }
