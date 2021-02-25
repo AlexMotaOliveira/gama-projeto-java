@@ -1,4 +1,4 @@
-package com.gama.controller;
+package main.java.com.gama.controller;
 
 import com.gama.model.Aluno;
 import org.springframework.beans.factory.annotation.Autowired;
