@@ -16,8 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Curso {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -25,5 +24,4 @@ public class Curso {
 
 	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<Disciplina> disciplinas = new ArrayList<>();
-
 }

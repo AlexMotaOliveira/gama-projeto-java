@@ -1,6 +1,9 @@
 package com.gama.service;
 
+import com.gama.exception.web.DuplicateUserException;
+import com.gama.exception.web.UserNotFoundException;
 import com.gama.model.Aluno;
+import com.gama.model.dto.response.MessageResponseDTO;
 import com.gama.repository.AlunoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +19,29 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
     private CursoService cursoService;
 
-    public Aluno criar(Aluno aluno){
-        return alunoRepository.save(aluno);
+    public MessageResponseDTO  criar(Aluno aluno) throws DuplicateUserException {
+        if (alunoRepository.existsByCpfOrEmail(aluno.getCpf(), aluno.getEmail())) {
+            throw new DuplicateUserException("CPF ou Email já cadastrado");
+        }
+
+        return createMessageResponse(alunoRepository.save(aluno).getId(),"Usuário criado com sucesso");
     }
 
-    public Aluno modificar(Long id, Aluno aluno){
+    public MessageResponseDTO modificar(Long id, Aluno aluno) throws UserNotFoundException {
+        validaId(id);
+
         aluno.setCursos(cursoService.buscarCursoPorIdAluno(id));
-        aluno.setEndereco(alunoRepository.findById(id).get().getEndereco());
         aluno.setId(id);
-        return alunoRepository.save(aluno);
+        return createMessageResponse(alunoRepository.save(aluno).getId(),"Usuário alterado com sucesso");
     }
 
-    public void apagar(Long id){
+    public void apagar(Long id) throws UserNotFoundException {
+        validaId(id);
         alunoRepository.deleteById(id);
     }
 
-    public Optional<Aluno> buscarId(Long id){
+    public Optional<Aluno> buscarId(Long id) throws UserNotFoundException {
+        validaId(id);
         return alunoRepository.findById(id);
     }
 
@@ -42,7 +52,18 @@ public class AlunoService {
 
 
 
-    private boolean validaId (Long id){
-        return alunoRepository.existsById(id);
+    private void validaId (Long id) throws UserNotFoundException {
+        if (!alunoRepository.existsById(id))
+            throw new UserNotFoundException("Usuário não localizado");
     }
+
+
+    private MessageResponseDTO createMessageResponse(Long id, String s) {
+        return MessageResponseDTO
+                .builder()
+                .message(s + id)
+                .build();
+    }
+
+
 }
