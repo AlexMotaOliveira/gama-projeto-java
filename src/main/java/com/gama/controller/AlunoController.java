@@ -46,4 +46,13 @@ public class AlunoController {
         return  ResponseEntity.ok(alunoService.listarTodos());
     }
 
+    @PostMapping("/{id}/curso")
+    public ResponseEntity<Aluno> salvar1 (@RequestBody Aluno aluno){
+        return  ResponseEntity.ok(alunoService.criar(aluno));
+    }
+
+    @PostMapping("/{id}/curso/{idCurso}/disciplina")
+    public ResponseEntity<Aluno> salvar2 (@RequestBody Aluno aluno){
+        return  ResponseEntity.ok(alunoService.criar(aluno));
+    }
 }

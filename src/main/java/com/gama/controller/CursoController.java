@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/curso")
@@ -22,17 +23,36 @@ public class CursoController {
 
 
     @PostMapping
-    public Curso save (@RequestBody Curso curso){
+    public Curso salvarCurso (@RequestBody Curso curso){
         return cursoService.salvar(curso);
     }
 
-    @PostMapping("/{id}/disciplinas")
-    public Disciplina saveDisciplina (@PathVariable Long id,@RequestBody Disciplina disciplina){
-        return disciplinaService.salvar(disciplina);
+
+    @GetMapping("/{id}")
+    public Optional<Curso> buscarId(@PathVariable Long id){
+        return cursoService.buscarId(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void apagarCurso (@PathVariable Long id){
+        cursoService.apagar(id);
     }
 
     @GetMapping
-    public List<Curso> listAll(){
+    public List<Curso> listarAll(){
         return cursoService.listAll();
+    }
+
+
+
+
+    @PostMapping("/{id}/disciplinas")
+    public void saveDisciplina (@PathVariable Long id, @RequestBody Disciplina disciplina){
+        Optional<Curso> curso = cursoService.buscarId(id);
+        if (!curso.isPresent()) {
+        }
+
+        curso.get().getDisciplinas().add(disciplinaService.salvar(disciplina));
+        cursoService.salvar(curso.get());
     }
 }

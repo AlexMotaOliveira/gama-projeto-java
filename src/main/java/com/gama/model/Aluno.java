@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class Aluno{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
     private String nome;
     private String cpf;
     private String email;
@@ -27,7 +30,7 @@ public class Aluno{
     @Embedded
     private Endereco endereco;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private List<Curso> cursos = new ArrayList<>();
 
 }

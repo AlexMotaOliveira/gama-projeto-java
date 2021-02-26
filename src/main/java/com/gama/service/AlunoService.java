@@ -21,10 +21,9 @@ public class AlunoService {
     }
 
     public Aluno modificar(Long id, Aluno aluno){
-        Aluno aluno1 = alunoRepository.findById(id).get();
-
+        aluno.setCursos(cursoService.buscarCursoPorIdAluno(id));
+        aluno.setEndereco(alunoRepository.findById(id).get().getEndereco());
         aluno.setId(id);
-
         return alunoRepository.save(aluno);
     }
 
