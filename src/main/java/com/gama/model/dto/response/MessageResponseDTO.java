@@ -8,4 +8,11 @@ import lombok.Data;
 public class MessageResponseDTO {
 
     private String message;
+
+    public static MessageResponseDTO createMessageResponse(Long id, String s) {
+        return MessageResponseDTO
+                .builder()
+                .message(s + id)
+                .build();
+    }
 }

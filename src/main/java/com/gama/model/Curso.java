@@ -20,6 +20,7 @@ public class Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String codigo;
 	private String curso;
 
 	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)

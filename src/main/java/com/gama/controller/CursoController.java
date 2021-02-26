@@ -1,8 +1,11 @@
 package com.gama.controller;
 
 
+import com.gama.exception.web.DuplicateException;
+import com.gama.exception.web.NotFoundException;
 import com.gama.model.Curso;
 import com.gama.model.Disciplina;
+import com.gama.model.dto.response.MessageResponseDTO;
 import com.gama.service.CursoService;
 import com.gama.service.DisciplinaService;
 import lombok.AllArgsConstructor;
@@ -23,23 +26,28 @@ public class CursoController {
 
 
     @PostMapping
-    public Curso salvarCurso (@RequestBody Curso curso){
-        return cursoService.salvar(curso);
+    public MessageResponseDTO salvarCurso (@RequestBody Curso curso) throws DuplicateException {
+        return cursoService.salvarCurso(curso);
+    }
+
+    @PutMapping("/{id}")
+    public MessageResponseDTO modificarCurso (@PathVariable Long id, @RequestBody Curso curso) throws NotFoundException {
+        return cursoService.modificarCurso(id, curso);
     }
 
 
     @GetMapping("/{id}")
-    public Optional<Curso> buscarId(@PathVariable Long id){
+    public Optional<Curso> buscarCursoId(@PathVariable Long id) throws NotFoundException {
         return cursoService.buscarId(id);
     }
 
     @DeleteMapping("/{id}")
-    public void apagarCurso (@PathVariable Long id){
+    public void apagarCursoId (@PathVariable Long id){
         cursoService.apagar(id);
     }
 
     @GetMapping
-    public List<Curso> listarAll(){
+    public List<Curso> listarTodosCursos(){
         return cursoService.listAll();
     }
 
@@ -47,12 +55,12 @@ public class CursoController {
 
 
     @PostMapping("/{id}/disciplinas")
-    public void saveDisciplina (@PathVariable Long id, @RequestBody Disciplina disciplina){
+    public void saveDisciplina (@PathVariable Long id, @RequestBody Disciplina disciplina) throws DuplicateException, NotFoundException {
         Optional<Curso> curso = cursoService.buscarId(id);
         if (!curso.isPresent()) {
         }
 
         curso.get().getDisciplinas().add(disciplinaService.salvar(disciplina));
-        cursoService.salvar(curso.get());
+        cursoService.salvarCurso(curso.get());
     }
 }

@@ -1,8 +1,8 @@
 package com.gama.exception;
 
 
-import com.gama.exception.web.DuplicateUserException;
-import com.gama.exception.web.UserNotFoundException;
+import com.gama.exception.web.DuplicateException;
+import com.gama.exception.web.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -13,13 +13,13 @@ public class WebRequestExceptionHandler {
 
     @ExceptionHandler
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    public RestResponseError handleException(DuplicateUserException e) {
+    public RestResponseError handleException(DuplicateException e) {
         return RestResponseError.fromMessageDuplicate(e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public RestResponseError handleException(UserNotFoundException e) {
+    public RestResponseError handleException(NotFoundException e) {
         return RestResponseError.userNotFoundException(e.getMessage());
     }
 }

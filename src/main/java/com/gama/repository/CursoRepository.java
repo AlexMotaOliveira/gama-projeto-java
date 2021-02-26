@@ -15,4 +15,5 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
     )
     List<Curso> listaCursos (Long id);
 
+    Boolean existsByCodigo(String curso);
 }

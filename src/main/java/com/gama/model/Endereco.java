@@ -4,30 +4,37 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Embeddable
 public class Endereco {
 
-    @Column(name = "endereco_cep")
+    @NotBlank
+    @Column(name = "endereco_cep", nullable = false, length = 9)
     private String cep;
 
-    @Column(name = "endereco_logradouro")
+    @NotBlank
+    @Column(name = "endereco_logradouro", nullable = false, length = 50)
     private String logradouro;
 
-    @Column(name = "endereco_numero")
+    @NotBlank
+    @Column(name = "endereco_numero", nullable = false, length = 20)
     private String numero;
 
     @Column(name = "endereco_complemento")
     private String complemento;
 
-    @Column(name = "endereco_bairro")
+    @NotBlank
+    @Column(name = "endereco_bairro", nullable = false, length = 50)
     private String bairro;
 
-    @Column(name = "endereco_cidade")
+    @NotBlank
+    @Column(name = "endereco_cidade", nullable = false, length = 50)
     private String cidade;
 
-    @Column(name = "endereco_uf")
+    @NotBlank
+    @Column(name = "endereco_uf", nullable = false, length = 2)
     private String uf;
 
 }
