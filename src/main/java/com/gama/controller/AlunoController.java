@@ -36,7 +36,7 @@ public class AlunoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MessageResponseDTO criarAluno (@RequestBody @Valid Aluno aluno) throws DuplicateException {
-            return alunoService.criar(aluno);
+            return alunoService.criarAluno(aluno);
     }
 
     @DeleteMapping({"/{id}"})

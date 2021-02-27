@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Aluno{
     private Long id;
 
     @NotBlank
+    @Size(min = 2, max = 50)
     @Column(nullable = false, length = 50)
     private String nome;
 
@@ -32,9 +34,11 @@ public class Aluno{
 
     @Email
     @NotBlank
-    @Column(nullable = false, length = 50)
+    @Size(min = 2, max = 100)
+    @Column(nullable = false, length = 100)
     private String email;
 
+    /* TODO: Criar codigo do aluno */
     @Column(nullable = false)
     private Long matricula;
 

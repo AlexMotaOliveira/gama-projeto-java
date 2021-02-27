@@ -46,6 +46,13 @@ public class CursoService {
         cursoRepository.deleteById(id);
     }
 
+
+    public MessageResponseDTO salvarCursoDsiciplina(Curso curso) throws DuplicateException {
+        return MessageResponseDTO.createMessageResponse(cursoRepository.save(curso).getId(), "Disciplina salva com sucesso!");
+    }
+
+    
+    
     private void existeCurso (String codigo) throws DuplicateException {
         if (cursoRepository.existsByCodigo(codigo))
             throw new DuplicateException("Código já cadastrado para outro curso");

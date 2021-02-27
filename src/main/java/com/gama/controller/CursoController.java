@@ -59,11 +59,15 @@ public class CursoController {
     public void salvarDisciplina (@PathVariable Long idCurso,
                                   @RequestBody Disciplina disciplina)
                                         throws DuplicateException, NotFoundException {
+        /* TODO: Alterar "feedback" de erro */
         Optional<Curso> curso = cursoService.buscarId(idCurso);
-        if (!curso.isPresent())
-
+        if(curso.get().getDisciplinas()
+                .stream()
+                .filter(d -> d.getCodigo().equals(disciplina.getCodigo())).count() > 0){
+            throw new DuplicateException("Disciplina já existe");
+        }
         curso.get().getDisciplinas().add(disciplinaService.salvar(disciplina));
-        cursoService.salvarCurso(curso.get());
+        cursoService.salvarCursoDsiciplina(curso.get());
     }
 
     @PutMapping("/{idCurso}/disciplinas/{idDisciplina}")

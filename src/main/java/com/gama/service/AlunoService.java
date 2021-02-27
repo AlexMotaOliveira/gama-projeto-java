@@ -19,7 +19,7 @@ public class AlunoService {
     private AlunoRepository alunoRepository;
     private CursoService cursoService;
 
-    public MessageResponseDTO  criar(Aluno aluno) throws DuplicateException {
+    public MessageResponseDTO criarAluno(Aluno aluno) throws DuplicateException {
         if (alunoRepository.existsByCpfOrEmail(aluno.getCpf(), aluno.getEmail())) {
             throw new DuplicateException("CPF ou Email já cadastrado");
         }

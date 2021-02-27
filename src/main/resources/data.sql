@@ -21,6 +21,7 @@ insert into curso_disciplinas (curso_id, disciplinas_id) values (1, 1);
 insert into curso_disciplinas (curso_id, disciplinas_id) values (1, 2);
 insert into curso_disciplinas (curso_id, disciplinas_id) values (2, 3);
 insert into curso_disciplinas (curso_id, disciplinas_id) values (1, 4);
+insert into curso_disciplinas (curso_id, disciplinas_id) values (2, 4);
 
 
 insert into notas (tipo_nota, valor_nota) values ('P1', 5);
