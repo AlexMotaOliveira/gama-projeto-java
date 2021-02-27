@@ -1,18 +1,12 @@
 package com.gama.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import net.bytebuddy.implementation.bind.annotation.Empty;
+import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +39,7 @@ public class Aluno{
     private Long matricula;
 
     @Valid
+    @NonNull
     @Embedded
     private Endereco endereco;
 

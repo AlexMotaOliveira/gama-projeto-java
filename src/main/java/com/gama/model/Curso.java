@@ -23,6 +23,6 @@ public class Curso {
 	private String codigo;
 	private String curso;
 
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	private List<Disciplina> disciplinas = new ArrayList<>();
 }

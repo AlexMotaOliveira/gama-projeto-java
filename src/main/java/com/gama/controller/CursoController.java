@@ -30,20 +30,21 @@ public class CursoController {
         return cursoService.salvarCurso(curso);
     }
 
-    @PutMapping("/{id}")
-    public MessageResponseDTO modificarCurso (@PathVariable Long id, @RequestBody Curso curso) throws NotFoundException {
-        return cursoService.modificarCurso(id, curso);
+    @PutMapping("/{idCurso}")
+    public MessageResponseDTO modificarCurso (@PathVariable Long idCurso,
+                                              @RequestBody Curso curso) throws NotFoundException {
+        return cursoService.modificarCurso(idCurso, curso);
     }
 
 
-    @GetMapping("/{id}")
-    public Optional<Curso> buscarCursoId(@PathVariable Long id) throws NotFoundException {
-        return cursoService.buscarId(id);
+    @GetMapping("/{idCurso}")
+    public Optional<Curso> buscarCursoId(@PathVariable Long idCurso) throws NotFoundException {
+        return cursoService.buscarId(idCurso);
     }
 
-    @DeleteMapping("/{id}")
-    public void apagarCursoId (@PathVariable Long id){
-        cursoService.apagar(id);
+    @DeleteMapping("/{idCurso}")
+    public void apagarCursoId (@PathVariable Long idCurso){
+        cursoService.apagar(idCurso);
     }
 
     @GetMapping
@@ -54,13 +55,32 @@ public class CursoController {
 
 
 
-    @PostMapping("/{id}/disciplinas")
-    public void saveDisciplina (@PathVariable Long id, @RequestBody Disciplina disciplina) throws DuplicateException, NotFoundException {
-        Optional<Curso> curso = cursoService.buscarId(id);
-        if (!curso.isPresent()) {
-        }
+    @PostMapping("/{idCurso}/disciplinas")
+    public void salvarDisciplina (@PathVariable Long idCurso,
+                                  @RequestBody Disciplina disciplina)
+                                        throws DuplicateException, NotFoundException {
+        Optional<Curso> curso = cursoService.buscarId(idCurso);
+        if (!curso.isPresent())
 
         curso.get().getDisciplinas().add(disciplinaService.salvar(disciplina));
         cursoService.salvarCurso(curso.get());
+    }
+
+    @PutMapping("/{idCurso}/disciplinas/{idDisciplina}")
+    public void modificarDisciplina (@PathVariable Long idCurso,
+                                     @PathVariable Long idDisciplina,
+                                     @RequestBody Disciplina disciplina)
+                                            throws  NotFoundException {
+        Optional<Curso> curso = cursoService.buscarId(idCurso);
+        if (!curso.isPresent());
+
+
+//        curso.get().getDisciplinas().set(idDisciplina,disciplina);
+//        cursoService.salvarCurso(curso.get());
+    }
+
+    @GetMapping("/{idCurso}/disciplinas")
+    public List<Disciplina> listarTodasDisciplinas(@PathVariable Long idCurso){
+        return disciplinaService.listAll();
     }
 }

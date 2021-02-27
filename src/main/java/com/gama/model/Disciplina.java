@@ -17,6 +17,6 @@ public class Disciplina {
 	private String disciplina;
 	private String conceito;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY ,cascade = CascadeType.PERSIST)
 	private List<Notas> notas = new ArrayList<>();
 }

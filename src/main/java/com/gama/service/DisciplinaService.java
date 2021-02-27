@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -20,5 +21,9 @@ public class DisciplinaService {
 
     public List<Disciplina> listAll() {
         return disciplinaRepository.findAll();
+    }
+
+    public Optional<Disciplina> buscarId(Long idDisciplina) {
+        return disciplinaRepository.findById(idDisciplina);
     }
 }
