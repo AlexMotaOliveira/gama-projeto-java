@@ -1,5 +1,6 @@
 package com.gama.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -49,5 +50,9 @@ public class Aluno{
 
     @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.PERSIST)
     private List<Curso> cursos = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    private List<Notas> notas = new ArrayList<>();
 
 }

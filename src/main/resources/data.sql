@@ -27,5 +27,10 @@ insert into curso_disciplinas (curso_id, disciplinas_id) values (2, 4);
 insert into notas (tipo_nota, valor_nota) values ('P1', 5);
 insert into notas (tipo_nota, valor_nota) values ('P2', 8);
 
-insert into disciplina_notas (disciplina_id, notas_id) values (1, 1);
-insert into disciplina_notas (disciplina_id, notas_id) values (1, 2);
+
+insert into notas_disciplinas (notas_id,disciplinas_id ) values (1, 1);
+insert into notas_disciplinas (notas_id, disciplinas_id) values (2, 1);
+
+insert into aluno_notas (aluno_id, notas_id) values (1, 2);
+insert into aluno_notas (aluno_id, notas_id) values (1, 1);
+

@@ -55,15 +55,14 @@ public class CursoController {
 
 
 
-    @PostMapping("/{idCurso}/disciplinas")
+   /* @PostMapping("/{idCurso}/disciplinas")
     public void salvarDisciplina (@PathVariable Long idCurso,
                                   @RequestBody Disciplina disciplina)
                                         throws DuplicateException, NotFoundException {
-        /* TODO: Alterar "feedback" de erro */
+        *//* TODO: Alterar "feedback" de erro *//*
         Optional<Curso> curso = cursoService.buscarId(idCurso);
-        if(curso.get().getDisciplinas()
-                .stream()
-                .filter(d -> d.getCodigo().equals(disciplina.getCodigo())).count() > 0){
+
+        if(disciplinaService.existeCodigo(disciplina.getCodigo())) {
             throw new DuplicateException("Disciplina já existe");
         }
         curso.get().getDisciplinas().add(disciplinaService.salvar(disciplina));
@@ -86,5 +85,5 @@ public class CursoController {
     @GetMapping("/{idCurso}/disciplinas")
     public List<Disciplina> listarTodasDisciplinas(@PathVariable Long idCurso){
         return disciplinaService.listAll();
-    }
+    }*/
 }
