@@ -3,6 +3,7 @@ package com.gama.service;
 import com.gama.exception.web.DuplicateException;
 import com.gama.exception.web.NotFoundException;
 import com.gama.model.Aluno;
+import com.gama.model.Notas;
 import com.gama.model.dto.response.MessageResponseDTO;
 import com.gama.repository.AlunoRepository;
 import lombok.AllArgsConstructor;
@@ -18,19 +19,23 @@ public class AlunoService {
 
     private AlunoRepository alunoRepository;
     private CursoService cursoService;
+    private NotasService notasService;
 
     public MessageResponseDTO criarAluno(Aluno aluno) throws DuplicateException {
         if (alunoRepository.existsByCpfOrEmail(aluno.getCpf(), aluno.getEmail())) {
             throw new DuplicateException("CPF ou Email já cadastrado");
         }
 
-        return MessageResponseDTO.createMessageResponse(alunoRepository.save(aluno).getId(),"Usuário criado com sucesso");
+        return MessageResponseDTO.createMessageResponse(alunoRepository.saveAndFlush(aluno).getId(),"Usuário criado com sucesso");
     }
 
     public MessageResponseDTO modificar(Long id, Aluno aluno) throws NotFoundException {
         existeId(id);
 
         aluno.setCursos(cursoService.buscarCursoPorIdAluno(id));
+
+        List<Notas> aluno1 = alunoRepository.findById(id).get().getNotas();
+        aluno.setNotas(aluno1);
         aluno.setId(id);
         return MessageResponseDTO.createMessageResponse(alunoRepository.save(aluno).getId(),"Usuário alterado com sucesso");
     }

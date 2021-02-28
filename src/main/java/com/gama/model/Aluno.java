@@ -51,8 +51,7 @@ public class Aluno{
     @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.PERSIST)
     private List<Curso> cursos = new ArrayList<>();
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Notas> notas = new ArrayList<>();
 
 }
