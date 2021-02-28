@@ -2,6 +2,7 @@ package com.gama.controller;
 
 
 import com.gama.exception.web.DuplicateException;
+import com.gama.exception.web.ExceptionError500;
 import com.gama.exception.web.NotFoundException;
 import com.gama.model.Curso;
 import com.gama.model.Disciplina;
@@ -43,7 +44,7 @@ public class CursoController {
     }
 
     @DeleteMapping("/{idCurso}")
-    public void apagarCursoId (@PathVariable Long idCurso){
+    public void apagarCursoId (@PathVariable Long idCurso) throws ExceptionError500 {
         cursoService.apagar(idCurso);
     }
 

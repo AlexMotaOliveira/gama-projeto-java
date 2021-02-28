@@ -50,6 +50,7 @@ public class Aluno{
     @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.PERSIST)
     private List<Curso> cursos = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Notas> notas = new ArrayList<>();
 

@@ -2,7 +2,9 @@ package com.gama.exception;
 
 
 import com.gama.exception.web.DuplicateException;
+import com.gama.exception.web.ExceptionError500;
 import com.gama.exception.web.NotFoundException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,5 +23,11 @@ public class WebRequestExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public RestResponseError handleException(NotFoundException e) {
         return RestResponseError.userNotFoundException(e.getMessage());
+    }
+
+    @ExceptionHandler(ExceptionError500.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public RestResponseError handleException(ExceptionError500 e) {
+        return RestResponseError.exceptionError500(e.getMessage());
     }
 }

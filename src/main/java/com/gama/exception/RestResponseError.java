@@ -24,4 +24,10 @@ public class RestResponseError {
         resp.error = message;
         return resp;
     }
+
+    public static RestResponseError exceptionError500(String message) {
+        RestResponseError resp = new RestResponseError();
+        resp.error = message;
+        return resp;
+    }
 }
