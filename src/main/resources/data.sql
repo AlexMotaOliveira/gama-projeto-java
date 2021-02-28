@@ -1,7 +1,7 @@
 
-insert into aluno (id, cpf, email, endereco_bairro, endereco_cep, endereco_cidade, endereco_complemento, endereco_logradouro, endereco_numero, endereco_uf, matricula, nome) values (null, '18859917891', 'carlos@gama.com', 'artur alvim', '03590170','SAO PAULO', '13B', 'Rua Irmão Nicolau', '169', 'SP', '202101', 'Alex Mota Brito');
-insert into aluno (id, cpf, email, endereco_bairro, endereco_cep, endereco_cidade, endereco_complemento, endereco_logradouro, endereco_numero, endereco_uf, matricula, nome) values (null, '64218188467', 'alex@gama.com', 'Jardim Ipanema (Cidade Líder)', '03582100','São Paulo', '13B', 'Rua Quinta da Magnólia', '169', 'SP', '202102', 'Alex Mota Brito');
-insert into aluno (id, cpf, email, endereco_bairro, endereco_cep, endereco_cidade, endereco_complemento, endereco_logradouro, endereco_numero, endereco_uf, matricula, nome) values (null, '68352452126', 'joao@gama.com', 'artur alvim', '03590090','SAO PAULO', '13B', 'Rua Padre Estevão de Oliveira', '169', 'SP', '202103', 'Alex Mota Brito');
+insert into aluno (id, cpf, email, endereco_bairro, endereco_cep, endereco_cidade, endereco_complemento, endereco_logradouro, endereco_numero, endereco_uf, matricula, nome) values (null, '18859917891', 'carlos@gama.com', 'artur alvim', '03590170','SAO PAULO', '', 'Rua Irmão Nicolau', '169', 'SP', '20210001', 'Carlos Jose');
+insert into aluno (id, cpf, email, endereco_bairro, endereco_cep, endereco_cidade, endereco_complemento, endereco_logradouro, endereco_numero, endereco_uf, matricula, nome) values (null, '64218188467', 'alex@gama.com', 'Jardim Ipanema (Cidade Líder)', '03582100','SAO PAULO', '', 'Rua Quinta da Magnólia', '2369', 'SP', '20210002', 'Alex Mota Brito');
+insert into aluno (id, cpf, email, endereco_bairro, endereco_cep, endereco_cidade, endereco_complemento, endereco_logradouro, endereco_numero, endereco_uf, matricula, nome) values (null, '68352452126', 'joao@gama.com', 'artur alvim', '03590090','SAO PAULO', '13B', 'Rua Padre Estevão de Oliveira', '15', 'SP', '20210003', 'Joao da Silva');
 
 insert into curso (id, curso, codigo) values (1, 'ENGENHARIA DE COMPUTAÇÃO', 'ENCO');
 insert into curso (id, curso, codigo) values (2, 'ENGENHARIA DE PRODUÇÃO', 'ENPO');
@@ -10,7 +10,7 @@ insert into curso (id, curso, codigo) values (4, 'SOCIOLOGIA', 'SOCI');
 
 insert into aluno_cursos (aluno_id, cursos_id) values (1, 1);
 insert into aluno_cursos (aluno_id, cursos_id) values (2, 2);
-insert into aluno_cursos (aluno_id, cursos_id) values (3, 3);
+insert into aluno_cursos (aluno_id, cursos_id) values (3, 1);
 
 insert into disciplina (id, codigo, conceito, disciplina) values (1, 'MM01', 'Matematica basica', 'MATEMATICA I');
 insert into disciplina (id, codigo, conceito, disciplina) values (2, 'PT01', 'PORTUGUES basico', 'PORTUGUES I');

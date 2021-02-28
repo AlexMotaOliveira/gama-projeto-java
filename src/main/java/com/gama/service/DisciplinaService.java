@@ -60,4 +60,8 @@ public class DisciplinaService {
                 .createMessageResponse(
                         disciplinaRepository.save(disciplina).getId(), "Disciplina modificada com sucesso");
     }
+
+    public void fecharConecxao(){
+        disciplinaRepository.flush();
+    }
 }

@@ -39,7 +39,6 @@ public class Aluno{
     @Column(nullable = false, length = 100)
     private String email;
 
-    /* TODO: Criar codigo do aluno */
     @Column(nullable = false)
     private Long matricula;
 
