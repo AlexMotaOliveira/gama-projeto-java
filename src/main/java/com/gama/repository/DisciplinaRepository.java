@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface DisciplinaRepository extends JpaRepository<Disciplina, Long> {
 
     boolean existsByCodigo(String codigo);
+
+    Disciplina findByCodigo(String codigo);
 }

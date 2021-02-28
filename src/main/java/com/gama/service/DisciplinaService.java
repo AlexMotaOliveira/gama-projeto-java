@@ -40,6 +40,11 @@ public class DisciplinaService {
         return disciplinaRepository.existsByCodigo(codigo);
     }
 
+    public Disciplina existeCodigoDisciplina (String codigo){
+        
+        return disciplinaRepository.findByCodigo(codigo);
+    }
+
     public void apagar(Long id) throws NotFoundException {
         if(!disciplinaRepository.existsById(id))
             throw new NotFoundException("Disciplina não localizada");

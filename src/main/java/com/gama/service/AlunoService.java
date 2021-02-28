@@ -19,7 +19,6 @@ public class AlunoService {
 
     private AlunoRepository alunoRepository;
     private CursoService cursoService;
-    private NotasService notasService;
 
     public MessageResponseDTO criarAluno(Aluno aluno) throws DuplicateException {
         if (alunoRepository.existsByCpfOrEmail(aluno.getCpf(), aluno.getEmail())) {
@@ -33,9 +32,7 @@ public class AlunoService {
         existeId(id);
 
         aluno.setCursos(cursoService.buscarCursoPorIdAluno(id));
-
-        List<Notas> aluno1 = alunoRepository.findById(id).get().getNotas();
-        aluno.setNotas(aluno1);
+        aluno.setNotas(alunoRepository.findById(id).get().getNotas());
         aluno.setId(id);
         return MessageResponseDTO.createMessageResponse(alunoRepository.save(aluno).getId(),"Usuário alterado com sucesso");
     }
@@ -58,8 +55,9 @@ public class AlunoService {
 
 
 
-    private void existeId (Long id) throws NotFoundException {
+    public void existeId (Long id) throws NotFoundException {
         if (!alunoRepository.existsById(id))
             throw new NotFoundException("Usuário não localizado");
     }
+   
 }

@@ -4,15 +4,18 @@ package com.gama.controller;
 import com.gama.exception.web.DuplicateException;
 import com.gama.exception.web.NotFoundException;
 import com.gama.model.Disciplina;
+import com.gama.model.Notas;
 import com.gama.model.dto.response.MessageResponseDTO;
 import com.gama.service.CursoService;
 import com.gama.service.DisciplinaService;
+import com.gama.service.NotasService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -21,36 +24,12 @@ import java.util.Optional;
 public class NotasController {
 
 
-    public CursoService cursoService;
-    public DisciplinaService disciplinaService;
+    private NotasService notasService;
 
-
-    @PostMapping
-    public MessageResponseDTO salvarDisciplina (@RequestBody Disciplina disciplina) throws DuplicateException {
-        return disciplinaService.salvar(disciplina);
-    }
-
-    @PutMapping("/{id}")
-    public MessageResponseDTO modificarCurso (@PathVariable Long id,
-                                              @RequestBody Disciplina disciplina) throws NotFoundException {
-        return disciplinaService.modificar(id, disciplina);
+    @PostMapping("/alunos/{idAluno}")
+    public MessageResponseDTO salvarDisciplina (@PathVariable Long idAluno, @RequestBody Notas notas) throws NotFoundException {
+        return notasService.salvar(idAluno, notas);
     }
 
 
-    @GetMapping("/{id}")
-    public Optional<Disciplina> buscarCursoId(@PathVariable Long id) throws NotFoundException {
-        return disciplinaService.buscarId(id);
-    }
-    /* TODO: Corrigir o retorno do chamado */
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public MessageResponseDTO apagaId (@PathVariable Long id) throws NotFoundException {
-        disciplinaService.apagar(id);
-        return MessageResponseDTO.createMessageResponse( id, "Disciplina excluída com sucesso");
-    }
-
-    @GetMapping
-    public List<Disciplina> listarTodosCursos(){
-        return disciplinaService.listAll();
-    }
 }

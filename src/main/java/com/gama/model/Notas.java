@@ -25,6 +25,6 @@ public class Notas {
 	private BigDecimal valorNota;
 	private String tipoNota;
 
-	@ManyToMany(fetch = FetchType.LAZY ,cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.LAZY ,cascade = CascadeType.DETACH)
 	private List<Disciplina> disciplinas = new ArrayList<>();
 }
