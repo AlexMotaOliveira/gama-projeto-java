@@ -1,22 +1,57 @@
 package com.gama.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Aluno {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Aluno{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String Nome;
+
+    @NotBlank
+    @Size(min = 2, max = 50)
+    @Column(nullable = false, length = 50)
+    private String nome;
+
+    @CPF
+    @NotBlank
+    @Column(nullable = false, length = 11)
     private String cpf;
+
+    @Email
+    @NotBlank
+    @Size(min = 2, max = 100)
+    @Column(nullable = false, length = 100)
     private String email;
-    private String numero;
-    private String cidade;
-    private String uf;
-    private String cep;
 
+    @Column(nullable = false)
+    private Long matricula;
 
-    @OneToOne
-    private Curso cursos = new Curso();
+    @Valid
+    @NonNull
+    @Embedded
+    private Endereco endereco;
+
+    @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.PERSIST)
+    private List<Curso> cursos = new ArrayList<>();
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Notas> notas = new ArrayList<>();
+
 }

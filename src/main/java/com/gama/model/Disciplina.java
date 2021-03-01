@@ -1,31 +1,40 @@
 package com.gama.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Disciplina {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String disciplina;
-	private String conceito;
-	
-	@ManyToOne
-	private Curso curso;
-	
-	@OneToMany(mappedBy = "disciplina")
-	private List<Notas> notas = new ArrayList<Notas>();
 
-	
+	@NotBlank
+	@Size(min = 3, max = 50)
+	@Column(nullable = false, length = 50)
+	private String codigo;
+
+	@NotBlank
+	@Size(min = 3, max = 50)
+	@Column(nullable = false, length = 50)
+	private String disciplina;
+
+	@NotBlank
+	@Size(min = 20, max = 255)
+	@Column(nullable = false, length = 255)
+	private String conceito;
+
+
 
 }

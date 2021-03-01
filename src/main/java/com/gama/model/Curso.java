@@ -1,29 +1,38 @@
 package com.gama.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Curso {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@NotBlank
+	@Size(min = 4, max = 10)
+	@Column(nullable = false, length = 10)
+	private String codigo;
+
+	@NotBlank
+	@Size(min = 3, max = 50)
+	@Column(nullable = false, length = 50)
 	private String curso;
 	
-	@OneToMany(mappedBy = "curso", fetch = FetchType.EAGER)
-	private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
-	
-	@ManyToOne
-	private Aluno aluno;
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	private List<Disciplina> disciplinas = new ArrayList<>();
 }
