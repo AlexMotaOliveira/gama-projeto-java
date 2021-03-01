@@ -13,7 +13,7 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
     @Query(value = "select * from Curso c inner join aluno_cursos ac on ac.aluno_id " +
             "= c.id and c.id=ac.cursos_id where c.id = ?1", nativeQuery = true
     )
-    List<Curso> listaCursos (Long id);
+    List<Curso> listaCursos(Long id);
 
     Boolean existsByCodigo(String curso);
 }

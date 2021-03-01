@@ -4,7 +4,6 @@ package com.gama.exception;
 import com.gama.exception.web.DuplicateException;
 import com.gama.exception.web.ExceptionError500;
 import com.gama.exception.web.NotFoundException;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

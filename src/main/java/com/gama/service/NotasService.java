@@ -14,10 +14,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.transaction.Transactional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -26,8 +25,7 @@ public class NotasService {
     private NotasRepository notasRepository;
     private AlunoService alunoService;
     private DisciplinaService disciplinaService;
-
-    /* TODO: Verificar duplicidade de prova. ex: P1,P1,P1,...*/
+    
     @Transactional
     public MessageResponseDTO salvar(Long idAluno, Notas notas) throws NotFoundException, DuplicateException {
         alunoService.existeId(idAluno);
@@ -68,11 +66,11 @@ public class NotasService {
         for (Notas notas1 : notasAluno){
             if(notas1.getTipoNota().equals(notas.getTipoNota())){
                 notasRepository.excluirRelacionamentoNotasDisciplinas(idAluno, notas1.getId());
-                notasRepository.deleteById(notas.getId());
-                return MessageResponseDTO.createMessageResponse(idAluno, "Nota Excluida");
+                notasRepository.deleteById(notas1.getId());
+                return MessageResponseDTO.createMessageResponse(idAluno, "Nota excluída");
             }
         }
-        throw new NotFoundException("Nota não localizada para alteração");
+        throw new NotFoundException("Nota não localizada para exclusão");
     }
 
     @Transactional
@@ -100,6 +98,7 @@ public class NotasService {
                 if(d.getCodigo().equals(nota.getDisciplinas().get(0).getCodigo())){
                     d.getNotas().add(new NotasDTO(nota.getTipoNota(), nota.getValorNota()));
                 }
+                d.status();
             }
         }
 
@@ -123,7 +122,7 @@ public class NotasService {
 
         Disciplina disciplina = notas.getDisciplinas().get(0);
         Disciplina disciplinaBD = disciplinaService.existeCodigoDisciplina(disciplina.getCodigo());
-        if (!disciplinaBD.getCodigo().equals(disciplina.getCodigo())) {
+        if (disciplinaBD== null || !disciplinaBD.getCodigo().equals(disciplina.getCodigo())) {
             throw new NotFoundException("Disciplina não localizada");
         }
         notas.getDisciplinas().get(0).setId(disciplinaBD.getId());

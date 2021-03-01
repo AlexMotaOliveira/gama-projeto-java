@@ -3,7 +3,6 @@ package com.gama.service;
 import com.gama.exception.web.DuplicateException;
 import com.gama.exception.web.NotFoundException;
 import com.gama.model.Aluno;
-import com.gama.model.Notas;
 import com.gama.model.dto.response.MessageResponseDTO;
 import com.gama.repository.AlunoRepository;
 import lombok.AllArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +26,7 @@ public class AlunoService {
         }
 
         aluno.setMatricula(gerarMatricula());
-        return MessageResponseDTO.createMessageResponse(alunoRepository.saveAndFlush(aluno).getMatricula(),"Usuário criado com sucesso");
+        return MessageResponseDTO.createMessageResponse(alunoRepository.saveAndFlush(aluno).getMatricula(), "Usuário criado com sucesso");
     }
 
     public MessageResponseDTO modificar(Long id, Aluno aluno) throws NotFoundException {
@@ -37,13 +35,14 @@ public class AlunoService {
         aluno.setCursos(cursoService.buscarCursoPorIdAluno(id));
         aluno.setNotas(alunoRepository.findById(id).get().getNotas());
         aluno.setId(id);
-        return MessageResponseDTO.createMessageResponse(alunoRepository.save(aluno).getId(),"Usuário alterado com sucesso");
+        aluno.setMatricula(gerarMatricula());
+        return MessageResponseDTO.createMessageResponse(alunoRepository.save(aluno).getId(), "Usuário alterado com sucesso");
     }
 
     public MessageResponseDTO apagar(Long id) throws NotFoundException {
         existeId(id);
         alunoRepository.deleteById(id);
-        return MessageResponseDTO.createMessageResponse(id,"Usuário excluído com sucesso");
+        return MessageResponseDTO.createMessageResponse(id, "Usuário excluído com sucesso");
     }
 
     public Optional<Aluno> buscarId(Long id) throws NotFoundException {
@@ -57,19 +56,18 @@ public class AlunoService {
     }
 
 
-
-    public void existeId (Long id) throws NotFoundException {
+    public void existeId(Long id) throws NotFoundException {
         if (!alunoRepository.existsById(id))
             throw new NotFoundException("Usuário não localizado");
     }
 
-    private Long gerarMatricula (){
-        Long matricula = (long)LocalDate.now().getYear() * 10000;
-        matricula += alunoRepository.count() + 1 ;
+    private Long gerarMatricula() {
+        Long matricula = (long) LocalDate.now().getYear() * 10000;
+        matricula += alunoRepository.count() + 1;
         while (alunoRepository.existsByMatricula(matricula)) {
             matricula += 1;
         }
         return matricula;
     }
-   
+
 }

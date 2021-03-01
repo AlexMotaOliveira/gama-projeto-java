@@ -1,6 +1,5 @@
 package com.gama.model;
 
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -13,8 +12,8 @@ import javax.validation.constraints.Size;
 public class Endereco {
 
     @NotBlank
-    @Size(min = 8, max = 8)
-    @Column(name = "endereco_cep", nullable = false, length = 8)
+    @Size(min = 8, max = 9)
+    @Column(name = "endereco_cep", nullable = false, length = 9)
     private String cep;
 
     @NotBlank
@@ -33,12 +32,12 @@ public class Endereco {
 
     @NotBlank
     @Size(min = 2, max = 100)
-    @Column(name = "endereco_bairro", nullable = false, length = 50)
+    @Column(name = "endereco_bairro", nullable = false, length = 100)
     private String bairro;
 
     @NotBlank
     @Size(min = 2, max = 100)
-    @Column(name = "endereco_cidade", nullable = false, length = 50)
+    @Column(name = "endereco_cidade", nullable = false, length = 100)
     private String cidade;
 
     @NotBlank

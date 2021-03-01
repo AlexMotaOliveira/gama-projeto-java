@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CursoService {
-
+  
     private CursoRepository cursoRepository;
 
     public MessageResponseDTO salvarCurso(Curso curso) throws DuplicateException {
@@ -25,8 +25,10 @@ public class CursoService {
         return MessageResponseDTO.createMessageResponse(cursoRepository.save(curso).getId(), "Curso salvo com sucesso!");
     }
 
-    public MessageResponseDTO modificarCurso(Long id, Curso curso) throws NotFoundException {
-        existeId(id);
+    public MessageResponseDTO modificarCurso(Long id, Curso curso) throws NotFoundException, DuplicateException {
+        existeCurso(curso.getCodigo());
+        Curso curso1 = buscarId(id).get();
+        curso.getDisciplinas().addAll(curso1.getDisciplinas());
         curso.setId(id);
         return MessageResponseDTO.createMessageResponse(cursoRepository.save(curso).getId(), "Curso alterado com sucesso!");
     }
