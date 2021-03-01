@@ -51,18 +51,16 @@ public class DisciplinaService {
             throw new NotFoundException("Disciplina não localizada");
         disciplinaRepository.deleteById(id);
     }
-    
+
     public MessageResponseDTO modificar(Long id, Disciplina disciplina) throws NotFoundException, DuplicateException {
         if (!disciplinaRepository.existsById(id))
             throw new NotFoundException("Disciplina não localizada");
 
-        boolean codigo = existeCodigo(disciplina.getCodigo());
-        // VERIFICAR SE O ID CODIGO É IGUAL AO CÓDIGO VAI SER ALTERADO
         if (buscarId(id).get().getCodigo().equals(disciplina.getCodigo())) {
             disciplina.setId(id);
             return MessageResponseDTO.createMessageResponse(disciplinaRepository.save(disciplina).getId(), "Disciplina modificada com sucesso");
         }
-        if(existeCodigo(disciplina.getCodigo())){
+        if (existeCodigo(disciplina.getCodigo())) {
             throw new DuplicateException("Esse código já está em uso");
         }
 

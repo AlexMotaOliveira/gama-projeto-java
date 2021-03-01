@@ -1,5 +1,6 @@
 package com.gama.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,7 +33,8 @@ public class Curso {
 	@Size(min = 3, max = 50)
 	@Column(nullable = false, length = 50)
 	private String curso;
-	
+
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<Disciplina> disciplinas = new ArrayList<>();
 }
