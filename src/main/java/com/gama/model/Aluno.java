@@ -47,6 +47,7 @@ public class Aluno{
     @Embedded
     private Endereco endereco;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.PERSIST)
     private List<Curso> cursos = new ArrayList<>();
 

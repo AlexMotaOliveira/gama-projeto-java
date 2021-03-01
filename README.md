@@ -1,7 +1,8 @@
 ## Projeto Java - Entrega em Grupo
 ### Projeto de conclusão de Curso - Parte JAVA
+* * * *
 
-Enunciado: Os grupos deverão desenvolver um sistema que permita o Cadastro, Inclusão, Consulta e Exclusão de Alunos.
+*Enunciado: Os grupos deverão desenvolver um sistema que permita o Cadastro, Inclusão, Consulta e Exclusão de Alunos.*
 
 
 
@@ -9,31 +10,31 @@ Enunciado: Os grupos deverão desenvolver um sistema que permita o Cadastro, Inc
 
 
 
-Orientação a Objetos, Modelagem e Banco de Dados e Persistência.
+* Orientação a Objetos, Modelagem e Banco de Dados e Persistência.
 
-Os alunos deverão ser cadastrados com os seguintes campos mínimos:
+* Os alunos deverão ser cadastrados com os seguintes campos mínimos:
 
-Chave de relacionamento
+* Chave de relacionamento
 
-Nome
+* Nome
 
-Endereço com cidade, UF e CEP.
+* Endereço com cidade, UF e CEP.
 
-Telefone
+* Telefone
 
-Nota da Prova1
+* Nota da Prova1
 
-Nota da Prova2
+* Nota da Prova2
 
-Nota do Trabalho
+* Nota do Trabalho
 
-Nota da Apresentação
+* Nota da Apresentação
 
-Curso
+* Curso
 
-Disciplina
+* Disciplina
 
-Conceito
+* Conceito
 
 
 

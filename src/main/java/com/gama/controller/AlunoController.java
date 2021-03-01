@@ -26,39 +26,58 @@ public class AlunoController {
 
     public AlunoService alunoService;
 
-    /*TODO ajustar retorno da respostas*/
+
     @ApiOperation(value = "Criar um Aluno")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Cria um Aluno"),
             @ApiResponse(code = 400, message = "Falha nos dados enviados"),
-            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
-            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
-    })
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponseDTO criarAluno (@RequestBody @Valid Aluno aluno) throws DuplicateException {
-            return alunoService.criarAluno(aluno);
+    public MessageResponseDTO criarAluno(@RequestBody @Valid Aluno aluno) throws DuplicateException {
+        return alunoService.criarAluno(aluno);
     }
 
+    @ApiOperation(value = "Excluir um Aluno")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Usuário excluído com sucesso"),
+            @ApiResponse(code = 400, message = "Falha nos dados enviados"),
+            @ApiResponse(code = 404, message = "Usuário não localizado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public MessageResponseDTO deletarAlunoId (@PathVariable Long id) throws NotFoundException {
-        return  alunoService.apagar(id);
+    public MessageResponseDTO deletarAlunoId(@PathVariable Long id) throws NotFoundException {
+        return alunoService.apagar(id);
     }
 
+    @ApiOperation(value = "Modificar um Aluno")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Aluno modificado com sucesso"),
+            @ApiResponse(code = 400, message = "Falha nos dados enviados"),
+            @ApiResponse(code = 404, message = "Usuário não localizado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema")})
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public MessageResponseDTO modificarAluno (@PathVariable Long id, @RequestBody @Valid Aluno aluno) throws NotFoundException {
+    public MessageResponseDTO modificarAluno(@PathVariable Long id, @RequestBody @Valid Aluno aluno) throws NotFoundException {
         return alunoService.modificar(id, aluno);
     }
 
+    @ApiOperation(value = "Buscar um Aluno")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Buscar um Aluno"),
+            @ApiResponse(code = 404, message = "Usuário não localizado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
     @GetMapping({"/{id}"})
-    public Optional<Aluno> buscarAlunoId (@PathVariable Long id) throws NotFoundException {
-        return  alunoService.buscarId(id);
+    public Optional<Aluno> buscarAlunoId(@PathVariable Long id) throws NotFoundException {
+        return alunoService.buscarId(id);
     }
 
+    @ApiOperation(value = "Listar todos os Alunos")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Listar todos os Alunos"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
     @GetMapping
-    public ResponseEntity<List<Aluno>> listarTodosAlunos (){
-        return  ResponseEntity.ok(alunoService.listarTodos());
+    public ResponseEntity<List<Aluno>> listarTodosAlunos() {
+        return ResponseEntity.ok(alunoService.listarTodos());
     }
 }

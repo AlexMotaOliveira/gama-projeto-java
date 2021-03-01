@@ -30,12 +30,12 @@ public class SpringFoxConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("Simple Spring Boot REST API")
-	            .description("Um exemplo de aplicação Spring Boot REST API")
+				.title("REST API Sistema de Gerenciamento de Cursos")
+	            .description("Cadastro, Alteração, Exclusão e Visualização de Cursos, Disciplinas, Alunos e Notas ")
 	            .version("1.0.0")
 	            .license("Apache License Version 2.0")
 	            .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
-	            .contact(new Contact("Alex Mota", "https://github.com/AlexMotaOliveira", "alexmbcdo@gmail.com"))
+	            .contact(new Contact("Alex Mota e Carlos Henrique", "https://github.com/AlexMotaOliveira/gama-projeto-java", ""))
 	            .build();
 
 	}

@@ -1,7 +1,6 @@
 package com.gama.service;
 
 import com.gama.exception.web.DuplicateException;
-import com.gama.exception.web.ExceptionError500;
 import com.gama.exception.web.NotFoundException;
 import com.gama.model.Curso;
 import com.gama.model.dto.response.MessageResponseDTO;
@@ -46,7 +45,7 @@ public class CursoService {
         return cursoRepository.findAll();
     }
 
-    public MessageResponseDTO apagar(Long id)  throws ExceptionError500 {
+    public MessageResponseDTO apagar(Long id) {
         try {
             cursoRepository.deleteById(id);
         }catch (ConstraintViolationException e){
@@ -56,12 +55,6 @@ public class CursoService {
     }
 
 
-    public MessageResponseDTO salvarCursoDsiciplina(Curso curso) throws DuplicateException {
-        return MessageResponseDTO.createMessageResponse(cursoRepository.save(curso).getId(), "Disciplina salva com sucesso!");
-    }
-
-    
-    
     private void existeCurso (String codigo) throws DuplicateException {
         if (cursoRepository.existsByCodigo(codigo))
             throw new DuplicateException("Código já cadastrado para outro curso");

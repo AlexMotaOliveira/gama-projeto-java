@@ -12,7 +12,7 @@ public class MessageResponseDTO {
     public static MessageResponseDTO createMessageResponse(Long id, String s) {
         return MessageResponseDTO
                 .builder()
-                .message(s + id)
+                .message(s + "  " + id)
                 .build();
     }
 }

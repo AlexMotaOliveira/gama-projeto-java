@@ -25,14 +25,14 @@ public class NotasService {
     private NotasRepository notasRepository;
     private AlunoService alunoService;
     private DisciplinaService disciplinaService;
-    
+
     @Transactional
     public MessageResponseDTO salvar(Long idAluno, Notas notas) throws NotFoundException, DuplicateException {
         alunoService.existeId(idAluno);
         existeDisciplina(notas);
-        List<Notas> notasAluno =notasRepository.buscarNotasPorIdAluno(idAluno,notas.getDisciplinas().get(0).getId());
-        for (Notas notas1 : notasAluno){
-            if(notas1.getTipoNota().equals(notas.getTipoNota())){
+        List<Notas> notasAluno = notasRepository.buscarNotasPorIdAluno(idAluno, notas.getDisciplinas().get(0).getId());
+        for (Notas notas1 : notasAluno) {
+            if (notas1.getTipoNota().equals(notas.getTipoNota())) {
                 throw new DuplicateException("Essa nota já foi inserida");
             }
         }
@@ -47,9 +47,9 @@ public class NotasService {
     public MessageResponseDTO modificarNota(Long idAluno, Notas notas) throws NotFoundException {
         alunoService.existeId(idAluno);
         existeDisciplina(notas);
-        List<Notas> notasAluno =notasRepository.buscarNotasPorIdAluno(idAluno,notas.getDisciplinas().get(0).getId());
-        for (Notas notas1 : notasAluno){
-            if(notas1.getTipoNota().equals(notas.getTipoNota())){
+        List<Notas> notasAluno = notasRepository.buscarNotasPorIdAluno(idAluno, notas.getDisciplinas().get(0).getId());
+        for (Notas notas1 : notasAluno) {
+            if (notas1.getTipoNota().equals(notas.getTipoNota())) {
                 notas.setId(notas1.getId());
                 notasRepository.saveAndFlush(notas);
                 return MessageResponseDTO.createMessageResponse(idAluno, "Nota Modificada");
@@ -62,9 +62,9 @@ public class NotasService {
     public MessageResponseDTO excluirNota(Long idAluno, Notas notas) throws NotFoundException {
         alunoService.existeId(idAluno);
         existeDisciplina(notas);
-        List<Notas> notasAluno =notasRepository.buscarNotasPorIdAluno(idAluno,notas.getDisciplinas().get(0).getId());
-        for (Notas notas1 : notasAluno){
-            if(notas1.getTipoNota().equals(notas.getTipoNota())){
+        List<Notas> notasAluno = notasRepository.buscarNotasPorIdAluno(idAluno, notas.getDisciplinas().get(0).getId());
+        for (Notas notas1 : notasAluno) {
+            if (notas1.getTipoNota().equals(notas.getTipoNota())) {
                 notasRepository.excluirRelacionamentoNotasDisciplinas(idAluno, notas1.getId());
                 notasRepository.deleteById(notas1.getId());
                 return MessageResponseDTO.createMessageResponse(idAluno, "Nota excluída");
@@ -85,7 +85,7 @@ public class NotasService {
         alunoDisciplinaNotasDTO.setCurso(aluno.getCursos().get(0).getCurso());
 
 
-        for (Disciplina d: aluno.getCursos().get(0).getDisciplinas()) {
+        for (Disciplina d : aluno.getCursos().get(0).getDisciplinas()) {
             DisciplinasDTO disciplina = new DisciplinasDTO();
             disciplina.setCodigo(d.getCodigo());
             disciplina.setDisciplina(d.getDisciplina());
@@ -93,36 +93,35 @@ public class NotasService {
         }
 
         List<Notas> alunoNotas = aluno.getNotas();
-        for (DisciplinasDTO d: alunoDisciplinaNotasDTO.getDisciplinas()){
-            for(Notas nota : alunoNotas){
-                if(d.getCodigo().equals(nota.getDisciplinas().get(0).getCodigo())){
+        for (DisciplinasDTO d : alunoDisciplinaNotasDTO.getDisciplinas()) {
+            for (Notas nota : alunoNotas) {
+                if (d.getCodigo().equals(nota.getDisciplinas().get(0).getCodigo())) {
                     d.getNotas().add(new NotasDTO(nota.getTipoNota(), nota.getValorNota()));
                 }
                 d.status();
             }
         }
 
-        return alunoDisciplinaNotasDTO ;
+        return alunoDisciplinaNotasDTO;
     }
 
 
-    public List<AlunoDisciplinaNotasDTO> listarTodos () throws NotFoundException {
+    public List<AlunoDisciplinaNotasDTO> listarTodos() throws NotFoundException {
         List<AlunoDisciplinaNotasDTO> alunoDisciplinaNotasDTOS = new ArrayList<>();
         List<Aluno> listaAlunos = alunoService.listarTodos();
 
-        for (Aluno idAluno: listaAlunos) {
+        for (Aluno idAluno : listaAlunos) {
             alunoDisciplinaNotasDTOS.add(buscarId(idAluno.getId()));
         }
         return alunoDisciplinaNotasDTOS;
     }
 
 
-
     public Notas existeDisciplina(Notas notas) throws NotFoundException {
 
         Disciplina disciplina = notas.getDisciplinas().get(0);
         Disciplina disciplinaBD = disciplinaService.existeCodigoDisciplina(disciplina.getCodigo());
-        if (disciplinaBD== null || !disciplinaBD.getCodigo().equals(disciplina.getCodigo())) {
+        if (disciplinaBD == null || !disciplinaBD.getCodigo().equals(disciplina.getCodigo())) {
             throw new NotFoundException("Disciplina não localizada");
         }
         notas.getDisciplinas().get(0).setId(disciplinaBD.getId());
@@ -131,6 +130,4 @@ public class NotasService {
 
         return notas;
     }
-
-
 }
