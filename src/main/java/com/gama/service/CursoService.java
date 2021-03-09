@@ -1,13 +1,14 @@
 package com.gama.service;
 
 import com.gama.exception.web.DuplicateException;
+import com.gama.exception.web.ExceptionError500;
 import com.gama.exception.web.NotFoundException;
 import com.gama.model.Curso;
 import com.gama.model.dto.response.MessageResponseDTO;
 import com.gama.repository.CursoRepository;
 import lombok.AllArgsConstructor;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,13 +46,13 @@ public class CursoService {
         return cursoRepository.findAll();
     }
 
-    public MessageResponseDTO apagar(Long id) {
+    public void apagar(Long id) throws ExceptionError500 , NotFoundException {
         try {
+            existeId(id);
             cursoRepository.deleteById(id);
-        }catch (ConstraintViolationException e){
-            return MessageResponseDTO.createMessageResponse( id, "Alunos cadastrados no curso, não é permitada a exclusão");
+        }catch (DataIntegrityViolationException e){
+            throw new ExceptionError500("Não é permitida a exclusão de um curso com alunos cadastrados");
         }
-        return MessageResponseDTO.createMessageResponse( id, "Curso excluído por não ter nenhum aluno cadastrado");
     }
 
 

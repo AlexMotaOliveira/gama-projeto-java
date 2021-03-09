@@ -3,6 +3,7 @@ package com.gama.service;
 import com.gama.exception.web.DuplicateException;
 import com.gama.exception.web.NotFoundException;
 import com.gama.model.Aluno;
+import com.gama.model.Curso;
 import com.gama.model.dto.response.MessageResponseDTO;
 import com.gama.repository.AlunoRepository;
 import lombok.AllArgsConstructor;
@@ -53,6 +54,30 @@ public class AlunoService {
 
     public List<Aluno> listarTodos() {
         return alunoRepository.findAll();
+    }
+
+    public MessageResponseDTO cadastrarAlunoCurso (Long idAluno, Long idCurso) throws NotFoundException, DuplicateException {
+        if(buscarId(idAluno).get().getCursos().size() > 0)
+            throw new DuplicateException("Aluno já possui um curso cadastrado");
+        Curso curso = cursoService.buscarId(idCurso).get();
+
+        Aluno aluno = buscarId(idAluno).get();
+        aluno.getCursos().add(curso);
+
+        alunoRepository.save(aluno);
+        return MessageResponseDTO.createMessageResponse(0l, "Curso adicionado com sucesso");
+    }
+
+    public MessageResponseDTO apagarAlunoCurso (Long idAluno, Long idCurso) throws NotFoundException{
+        if(buscarId(idAluno).get().getCursos().size() < 1)
+            throw new NotFoundException("Aluno não possui um curso cadastrado");
+        cursoService.buscarId(idCurso).get();
+
+        Aluno aluno = buscarId(idAluno).get();
+        aluno.getCursos().clear();
+
+        alunoRepository.save(aluno);
+        return MessageResponseDTO.createMessageResponse(0l, "Curso apagado com sucesso");
     }
 
 

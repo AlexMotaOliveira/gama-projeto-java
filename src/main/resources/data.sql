@@ -20,17 +20,52 @@ insert into disciplina (id, codigo, conceito, disciplina) values (4, 'FS03', 'Fi
 insert into curso_disciplinas (curso_id, disciplinas_id) values (1, 1);
 insert into curso_disciplinas (curso_id, disciplinas_id) values (1, 2);
 insert into curso_disciplinas (curso_id, disciplinas_id) values (2, 3);
-insert into curso_disciplinas (curso_id, disciplinas_id) values (1, 4);
+insert into curso_disciplinas (curso_id, disciplinas_id) values (1, 3);
 insert into curso_disciplinas (curso_id, disciplinas_id) values (2, 4);
 
 
-insert into notas (tipo_nota, valor_nota) values ('P1', 5);
-insert into notas (tipo_nota, valor_nota) values ('P2', 8);
-
+insert into notas (tipo_nota, valor_nota) values ('NOTA_PROVA_1', 5);
+insert into notas (tipo_nota, valor_nota) values ('NOTA_PROVA_2', 8);
+insert into notas (tipo_nota, valor_nota) values ('NOTA_TRABALHO', 5);
+insert into notas (tipo_nota, valor_nota) values ('NOTA_APRESENTACAO', 8);
 
 insert into notas_disciplinas (notas_id,disciplinas_id ) values (1, 1);
 insert into notas_disciplinas (notas_id, disciplinas_id) values (2, 1);
+insert into notas_disciplinas (notas_id,disciplinas_id ) values (3, 1);
+insert into notas_disciplinas (notas_id, disciplinas_id) values (4, 1);
 
-insert into aluno_notas (aluno_id, notas_id) values (1, 2);
 insert into aluno_notas (aluno_id, notas_id) values (1, 1);
+insert into aluno_notas (aluno_id, notas_id) values (1, 2);
+insert into aluno_notas (aluno_id, notas_id) values (1, 3);
+insert into aluno_notas (aluno_id, notas_id) values (1, 4);
+
+insert into notas (tipo_nota, valor_nota) values ('NOTA_PROVA_1', 3);
+insert into notas (tipo_nota, valor_nota) values ('NOTA_PROVA_2', 5);
+insert into notas (tipo_nota, valor_nota) values ('NOTA_TRABALHO', 6);
+insert into notas (tipo_nota, valor_nota) values ('NOTA_APRESENTACAO', 1);
+
+insert into notas_disciplinas (notas_id,disciplinas_id ) values (5, 2);
+insert into notas_disciplinas (notas_id, disciplinas_id) values (6, 2);
+insert into notas_disciplinas (notas_id,disciplinas_id ) values (7, 2);
+insert into notas_disciplinas (notas_id, disciplinas_id) values (8, 2);
+
+insert into aluno_notas (aluno_id, notas_id) values (1, 5);
+insert into aluno_notas (aluno_id, notas_id) values (1, 6);
+insert into aluno_notas (aluno_id, notas_id) values (1, 7);
+insert into aluno_notas (aluno_id, notas_id) values (1, 8);
+
+insert into notas (tipo_nota, valor_nota) values ('NOTA_PROVA_1', 3);
+insert into notas (tipo_nota, valor_nota) values ('NOTA_PROVA_2', 3);
+insert into notas (tipo_nota, valor_nota) values ('NOTA_TRABALHO', 4);
+insert into notas (tipo_nota, valor_nota) values ('NOTA_APRESENTACAO', 3);
+
+insert into notas_disciplinas (notas_id,disciplinas_id ) values (9, 3);
+insert into notas_disciplinas (notas_id, disciplinas_id) values (10, 3);
+insert into notas_disciplinas (notas_id,disciplinas_id ) values (11, 3);
+insert into notas_disciplinas (notas_id, disciplinas_id) values (12, 3);
+
+insert into aluno_notas (aluno_id, notas_id) values (1, 9);
+insert into aluno_notas (aluno_id, notas_id) values (1, 10);
+insert into aluno_notas (aluno_id, notas_id) values (1, 11);
+insert into aluno_notas (aluno_id, notas_id) values (1, 12);
 

@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/curso")
+@RequestMapping("/api/v1/cursos")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CursoController {
 
@@ -66,12 +66,13 @@ public class CursoController {
 
     @ApiOperation(value = "Excluir um Curso")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Excluir de curso"),
+            @ApiResponse(code = 204, message = "Curso excluído com sucesso"),
+            @ApiResponse(code = 403, message = "Não é permitida a exclusão de um curso com alunos cadastrados"),
             @ApiResponse(code = 404, message = "Curso não localizado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
     @DeleteMapping("/{idCurso}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void apagarCursoId(@PathVariable Long idCurso) throws ExceptionError500 {
+    public void apagarCursoId(@PathVariable Long idCurso) throws ExceptionError500, NotFoundException {
         cursoService.apagar(idCurso);
     }
 

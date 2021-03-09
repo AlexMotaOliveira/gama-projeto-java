@@ -2,6 +2,7 @@ package com.gama.controller;
 
 
 import com.gama.exception.web.DuplicateException;
+import com.gama.exception.web.ExceptionError500;
 import com.gama.exception.web.NotFoundException;
 import com.gama.model.Disciplina;
 import com.gama.model.dto.response.MessageResponseDTO;
@@ -74,9 +75,8 @@ public class DisciplinaController {
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public MessageResponseDTO apagaId(@PathVariable Long id) throws NotFoundException {
+    public void apagaId(@PathVariable Long id) throws NotFoundException, ExceptionError500 {
         disciplinaService.apagar(id);
-        return MessageResponseDTO.createMessageResponse(id, "Disciplina excluída com sucesso");
     }
 
     @ApiOperation(value = "Listar Todos os Cursos")

@@ -30,16 +30,16 @@ public class Aluno{
 
     @CPF
     @NotBlank
-    @Column(nullable = false, length = 11)
+    @Column(nullable = false, length = 11,unique = true)
     private String cpf;
 
     @Email
     @NotBlank
     @Size(min = 2, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100,unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private Long matricula;
 
     @Valid

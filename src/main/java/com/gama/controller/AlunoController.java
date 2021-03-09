@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/aluno")
+@RequestMapping("/api/v1/alunos")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class AlunoController {
 
@@ -79,5 +79,31 @@ public class AlunoController {
     @GetMapping
     public ResponseEntity<List<Aluno>> listarTodosAlunos() {
         return ResponseEntity.ok(alunoService.listarTodos());
+    }
+
+    @ApiOperation(value = "Adicionar um curso para um Aluno")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Cadastrato com sucesso"),
+            @ApiResponse(code = 400, message = "Falha nos dados enviados"),
+            @ApiResponse(code = 404, message = "Usuário/Curso não localizado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
+    @PostMapping({"/{idAluno}/curso/{idCurso}"})
+    @ResponseStatus(HttpStatus.CREATED)
+    public MessageResponseDTO cadastarAlunoCurso(@PathVariable Long idAluno,
+                                                 @PathVariable Long idCurso) throws NotFoundException, DuplicateException {
+        return alunoService.cadastrarAlunoCurso(idAluno,idCurso);
+    }
+
+    @ApiOperation(value = "Excluir um Curso do aluno")
+    @ApiResponses(value = {
+            @ApiResponse(code = 204, message = "Curso excluído com sucesso"),
+            @ApiResponse(code = 400, message = "Falha nos dados enviados"),
+            @ApiResponse(code = 404, message = "Usuário/Curso não localizado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
+    @DeleteMapping({"/{idAluno}/curso/{idCurso}"})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public MessageResponseDTO deletarAlunoCurso(@PathVariable Long idAluno,
+                                                 @PathVariable Long idCurso) throws NotFoundException {
+        return alunoService.apagarAlunoCurso(idAluno,idCurso);
     }
 }

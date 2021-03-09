@@ -19,7 +19,7 @@ public interface NotasRepository extends JpaRepository<Notas, Long> {
     List<Notas> buscarNotasPorIdAluno(Long aluno_id, Long disciplina_id);
 
     @Modifying
-    @Query(value = "DELETE FROM  ALUNO_NOTAS WHERE NOTAS_ID=?1 AND ALUNO_ID=?2", nativeQuery = true)
-    void excluirRelacionamentoNotasDisciplinas(Long notas_id, Long aluno_id);
-    
+    @Query(value = "DELETE FROM  ALUNO_NOTAS WHERE ALUNO_ID=?1 AND NOTAS_ID=?2", nativeQuery = true)
+    void excluirRelacionamentoNotasDisciplinas(Long aluno_id, Long notas_id);
+
 }

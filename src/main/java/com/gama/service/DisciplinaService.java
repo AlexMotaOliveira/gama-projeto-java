@@ -1,6 +1,7 @@
 package com.gama.service;
 
 import com.gama.exception.web.DuplicateException;
+import com.gama.exception.web.ExceptionError500;
 import com.gama.exception.web.NotFoundException;
 import com.gama.model.Disciplina;
 import com.gama.model.dto.response.MessageResponseDTO;
@@ -8,6 +9,7 @@ import com.gama.repository.CursoRepository;
 import com.gama.repository.DisciplinaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -46,10 +48,14 @@ public class DisciplinaService {
         return disciplinaRepository.findByCodigo(codigo);
     }
 
-    public void apagar(Long id) throws NotFoundException {
-        if (!disciplinaRepository.existsById(id))
-            throw new NotFoundException("Disciplina não localizada");
-        disciplinaRepository.deleteById(id);
+    public void apagar(Long id) throws NotFoundException, ExceptionError500 {
+        try {
+            if (!disciplinaRepository.existsById(id))
+                throw new NotFoundException("Disciplina não localizada");
+            disciplinaRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new ExceptionError500("Não é permitida a exclusão de uma disciplina com alunos cadastrados");
+        }
     }
 
     public MessageResponseDTO modificar(Long id, Disciplina disciplina) throws NotFoundException, DuplicateException {
@@ -68,10 +74,6 @@ public class DisciplinaService {
         return MessageResponseDTO.createMessageResponse(disciplinaRepository.save(disciplina).getId(), "Disciplina modificada com sucesso");
     }
 
-
-    public void fecharConecxao() {
-        disciplinaRepository.flush();
-    }
 
     @Transactional
     public MessageResponseDTO relacionarDisciplinaCurso(Long idDisciplina, Long idCurso) throws NotFoundException, DuplicateException {

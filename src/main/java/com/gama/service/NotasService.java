@@ -9,6 +9,7 @@ import com.gama.model.dto.AlunoDisciplinaNotasDTO;
 import com.gama.model.dto.DisciplinasDTO;
 import com.gama.model.dto.NotasDTO;
 import com.gama.model.dto.response.MessageResponseDTO;
+import com.gama.model.enums.TipoNota;
 import com.gama.repository.NotasRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -30,6 +32,7 @@ public class NotasService {
     public MessageResponseDTO salvar(Long idAluno, Notas notas) throws NotFoundException, DuplicateException {
         alunoService.existeId(idAluno);
         existeDisciplina(notas);
+        existeTipoNota(notas.getTipoNota());
         List<Notas> notasAluno = notasRepository.buscarNotasPorIdAluno(idAluno, notas.getDisciplinas().get(0).getId());
         for (Notas notas1 : notasAluno) {
             if (notas1.getTipoNota().equals(notas.getTipoNota())) {
@@ -43,10 +46,12 @@ public class NotasService {
         return MessageResponseDTO.createMessageResponse(idAluno, "Nota Adicionada");
     }
 
+
     @Transactional
     public MessageResponseDTO modificarNota(Long idAluno, Notas notas) throws NotFoundException {
         alunoService.existeId(idAluno);
         existeDisciplina(notas);
+        existeTipoNota(notas.getTipoNota());
         List<Notas> notasAluno = notasRepository.buscarNotasPorIdAluno(idAluno, notas.getDisciplinas().get(0).getId());
         for (Notas notas1 : notasAluno) {
             if (notas1.getTipoNota().equals(notas.getTipoNota())) {
@@ -62,6 +67,7 @@ public class NotasService {
     public MessageResponseDTO excluirNota(Long idAluno, Notas notas) throws NotFoundException {
         alunoService.existeId(idAluno);
         existeDisciplina(notas);
+        existeTipoNota(notas.getTipoNota());
         List<Notas> notasAluno = notasRepository.buscarNotasPorIdAluno(idAluno, notas.getDisciplinas().get(0).getId());
         for (Notas notas1 : notasAluno) {
             if (notas1.getTipoNota().equals(notas.getTipoNota())) {
@@ -82,26 +88,26 @@ public class NotasService {
 
         alunoDisciplinaNotasDTO.setNome(aluno.getNome());
         alunoDisciplinaNotasDTO.setMatricula(aluno.getMatricula());
-        alunoDisciplinaNotasDTO.setCurso(aluno.getCursos().get(0).getCurso());
 
+        if(!aluno.getCursos().isEmpty()) {
+            alunoDisciplinaNotasDTO.setCurso(aluno.getCursos().get(0).getCurso());
+            for (Disciplina d : aluno.getCursos().get(0).getDisciplinas()) {
+                DisciplinasDTO disciplina = new DisciplinasDTO();
+                disciplina.setCodigo(d.getCodigo());
+                disciplina.setDisciplina(d.getDisciplina());
+                alunoDisciplinaNotasDTO.getDisciplinas().add(disciplina);
+            }
 
-        for (Disciplina d : aluno.getCursos().get(0).getDisciplinas()) {
-            DisciplinasDTO disciplina = new DisciplinasDTO();
-            disciplina.setCodigo(d.getCodigo());
-            disciplina.setDisciplina(d.getDisciplina());
-            alunoDisciplinaNotasDTO.getDisciplinas().add(disciplina);
-        }
-
-        List<Notas> alunoNotas = aluno.getNotas();
-        for (DisciplinasDTO d : alunoDisciplinaNotasDTO.getDisciplinas()) {
-            for (Notas nota : alunoNotas) {
-                if (d.getCodigo().equals(nota.getDisciplinas().get(0).getCodigo())) {
-                    d.getNotas().add(new NotasDTO(nota.getTipoNota(), nota.getValorNota()));
+            List<Notas> alunoNotas = aluno.getNotas();
+            for (DisciplinasDTO d : alunoDisciplinaNotasDTO.getDisciplinas()) {
+                for (Notas nota : alunoNotas) {
+                    if (d.getCodigo().equals(nota.getDisciplinas().get(0).getCodigo())) {
+                        d.getNotas().add(new NotasDTO(nota.getTipoNota(), nota.getValorNota()));
+                    }
+                    d.status();
                 }
-                d.status();
             }
         }
-
         return alunoDisciplinaNotasDTO;
     }
 
@@ -129,5 +135,13 @@ public class NotasService {
         notas.getDisciplinas().get(0).setDisciplina(disciplinaBD.getDisciplina());
 
         return notas;
+    }
+
+    private void existeTipoNota(String tipoNota) throws NotFoundException {
+        for (TipoNota t: TipoNota.values())
+            if (t.name().equals(tipoNota))
+                return;
+
+            throw new NotFoundException("Tipo nota não existe, verifique a lista de notas disponíveis");
     }
 }
