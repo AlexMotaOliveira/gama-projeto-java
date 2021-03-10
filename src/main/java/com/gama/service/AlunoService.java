@@ -33,10 +33,12 @@ public class AlunoService {
     public MessageResponseDTO modificar(Long id, Aluno aluno) throws NotFoundException {
         existeId(id);
 
+        Optional<Aluno> alunoBanco = alunoRepository.findById(id);
+
         aluno.setCursos(cursoService.buscarCursoPorIdAluno(id));
-        aluno.setNotas(alunoRepository.findById(id).get().getNotas());
+        aluno.setNotas(alunoBanco.get().getNotas());
         aluno.setId(id);
-        aluno.setMatricula(gerarMatricula());
+        aluno.setMatricula(alunoBanco.get().getMatricula());
         return MessageResponseDTO.createMessageResponse(alunoRepository.save(aluno).getId(), "Usuário alterado com sucesso");
     }
 
@@ -49,6 +51,13 @@ public class AlunoService {
     public Optional<Aluno> buscarId(Long id) throws NotFoundException {
         existeId(id);
         return alunoRepository.findById(id);
+    }
+
+    public Optional<Aluno> buscarMatricula(Long matricula) throws NotFoundException {
+        if(!alunoRepository.existsByMatricula(matricula)){
+            throw new NotFoundException("Matricula não localizada");
+        }
+        return alunoRepository.findByMatricula(matricula);
     }
 
 

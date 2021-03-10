@@ -106,4 +106,14 @@ public class AlunoController {
                                                  @PathVariable Long idCurso) throws NotFoundException {
         return alunoService.apagarAlunoCurso(idAluno,idCurso);
     }
+
+    @ApiOperation(value = "Buscar um Aluno")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Buscar um Aluno"),
+            @ApiResponse(code = 404, message = "Usuário não localizado"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
+    @GetMapping({"/matricula/{matricula}"})
+    public Optional<Aluno> buscarAlunoMatricula(@PathVariable Long matricula) throws NotFoundException {
+        return alunoService.buscarMatricula(matricula);
+    }
 }
