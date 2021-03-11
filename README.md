@@ -38,5 +38,5 @@
 ### Links úteis após o inicio da API:
 
 * Banco de dados H2: http://localhost:8080/h2-console
-* Documentação Swagger: http://localhost:8080/swagger-ui.html
+* Documentação Swagger no heroku: https://gama-acadamey.herokuapp.com/swagger-ui.html
 * Teste no Postman: https://www.getpostman.com/collections/eb05aafcd53b8949836c
