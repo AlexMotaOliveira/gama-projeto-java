@@ -23,14 +23,14 @@ public class Notas {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-
 
 	@DecimalMax(value = "10.00")
 	@DecimalMin(value = "0.00")
+	@Column(nullable = false)
 	private BigDecimal valorNota;
 
 	@NotBlank
+	@Column(nullable = false)
 	private String tipoNota;
 
 	@ManyToMany(fetch = FetchType.LAZY ,cascade = CascadeType.DETACH)

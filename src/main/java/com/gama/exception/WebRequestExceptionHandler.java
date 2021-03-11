@@ -24,7 +24,7 @@ public class WebRequestExceptionHandler {
         return RestResponseError.userNotFoundException(e.getMessage());
     }
 
-    @ExceptionHandler(ExceptionError500.class)
+    @ExceptionHandler
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public RestResponseError handleException(ExceptionError500 e) {
         return RestResponseError.exceptionError500(e.getMessage());

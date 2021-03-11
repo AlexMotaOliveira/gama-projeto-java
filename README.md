@@ -3,51 +3,40 @@
 * * * *
 
 *Enunciado: Os grupos deverão desenvolver um sistema que permita o Cadastro, Inclusão, Consulta e Exclusão de Alunos.*
+* * * *
 
+### Tecnologias utilizadas:
+* Java 14
+* Maven
+* SpringBoot
+    * Spring Data JPA
+        * Hibernete
+        * Bean Validation
+    * Spring Web
+    * H2
+    * Springfox-swagger  
+    * Spring DevTools
+* Postman    
+* IntelliJ
+* CodeTogether
+* Ngrok
 
+* * * *
+### Modelo Conceitual:
 
-### Critérios de avaliação:
+![img_1.png](../gama-projeto-java/Diagrama entidades.png)
 
+* * * *
+### Utilização do Projeto:
+* Faça download do projeto:
+    * `git clone https://github.com/AlexMotaOliveira/gama-projeto-java.git`
+* Importe na sua IDE
+* Inicie a aplicação.
 
+* * * *
 
-* Orientação a Objetos, Modelagem e Banco de Dados e Persistência.
+### Links úteis após o inicio da API:
 
-* Os alunos deverão ser cadastrados com os seguintes campos mínimos:
-
-* Chave de relacionamento
-
-* Nome
-
-* Endereço com cidade, UF e CEP.
-
-* Telefone
-
-* Nota da Prova1
-
-* Nota da Prova2
-
-* Nota do Trabalho
-
-* Nota da Apresentação
-
-* Curso
-
-* Disciplina
-
-* Conceito
-
-
-
-### Lógica de programação
-
-Realizar alguma funcionalidade que envolva regra de negócio com ênfase no cadastro de alunos como tratamento de campos obrigatórios, cálculo da média final, aprovação e reprovação.
-
-
-
-Spring e Spring WEB
-
-Criar APIs Rest documentada com Swagger utilizando o Spring Web para realizar todas as operações de cadastro de alunos.
-
-Deverão ser apresentados os recursos utilizados no desenvolvimento como Linguagens, Gerenciador de Banco de Dados, Tecnologias (Spring, Swing, CSS,  etc).
-
-Como iremos falar de Spring  e APIs, o uso do Swing (opcional) poderia ser um cliente da API utilizando Rest Controller ou OpenFeint.
+* Banco de dados H2: http://localhost:8080/h2-console
+* Documentação Swagger: http://localhost:8080/swagger-ui.html
+* Teste no Postman: https://www.getpostman.com/collections/eb05aafcd53b8949836c

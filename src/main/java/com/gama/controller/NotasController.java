@@ -45,8 +45,8 @@ public class NotasController {
     })
     @DeleteMapping("/alunos/{idAluno}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public MessageResponseDTO deletarNotasDisciplina(@PathVariable Long idAluno, @RequestBody Notas notas) throws NotFoundException {
-        return notasService.excluirNota(idAluno, notas);
+    public void deletarNotasDisciplina(@PathVariable Long idAluno, @RequestBody Notas notas) throws NotFoundException {
+         notasService.excluirNota(idAluno, notas);
     }
 
 
