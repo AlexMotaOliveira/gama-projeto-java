@@ -26,8 +26,9 @@ public class DisciplinaService {
     public MessageResponseDTO salvar(Disciplina disciplina) throws DuplicateException {
         if (existeCodigo(disciplina.getCodigo()))
             throw new DuplicateException("Disciplina já existe");
-
-        return MessageResponseDTO.createMessageResponse(disciplinaRepository.save(disciplina).getId(), "Disciplina cadastrada com sucesso");
+;
+        return MessageResponseDTO.createMessageResponse("Disciplina cadastrada com sucesso!, código: " +
+                disciplinaRepository.save(disciplina).getCodigo());
     }
 
     public List<Disciplina> listAll() {
@@ -64,14 +65,16 @@ public class DisciplinaService {
 
         if (buscarId(id).get().getCodigo().equals(disciplina.getCodigo())) {
             disciplina.setId(id);
-            return MessageResponseDTO.createMessageResponse(disciplinaRepository.save(disciplina).getId(), "Disciplina modificada com sucesso");
+            return MessageResponseDTO.createMessageResponse("Disciplina código: " +
+                    disciplinaRepository.save(disciplina).getCodigo() +", modificada com sucesso");
         }
         if (existeCodigo(disciplina.getCodigo())) {
             throw new DuplicateException("Esse código já está em uso");
         }
 
         disciplina.setId(id);
-        return MessageResponseDTO.createMessageResponse(disciplinaRepository.save(disciplina).getId(), "Disciplina modificada com sucesso");
+        return MessageResponseDTO.createMessageResponse("Disciplina " +
+                disciplinaRepository.save(disciplina).getCodigo() +"modificada com sucesso");
     }
 
 
@@ -87,7 +90,7 @@ public class DisciplinaService {
         }
 
         disciplinaRepository.inserirRelacionamento(idCurso, idDisciplina);
-        return MessageResponseDTO.createMessageResponse(idDisciplina, "Disciplina cadastrada com sucesso!");
+        return MessageResponseDTO.createMessageResponse("Disciplina cadastrada com sucesso!");
     }
 
     @Transactional
@@ -95,6 +98,6 @@ public class DisciplinaService {
         if (!disciplinaRepository.existsById(disciplinas_id) || !cursoRepository.existsById(curso_id))
             throw new NotFoundException("Disciplina/Curso não localizada");
         disciplinaRepository.removerRelacionamento(curso_id, disciplinas_id);
-        return MessageResponseDTO.createMessageResponse(disciplinas_id, "Disciplina excluída com sucesso!");
+        return MessageResponseDTO.createMessageResponse("Disciplina excluída com sucesso!");
     }
 }

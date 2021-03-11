@@ -27,7 +27,8 @@ public class AlunoService {
         }
 
         aluno.setMatricula(gerarMatricula());
-        return MessageResponseDTO.createMessageResponse(alunoRepository.saveAndFlush(aluno).getMatricula(), "Usuário criado com sucesso");
+        Long matricula = alunoRepository.saveAndFlush(aluno).getMatricula();
+        return MessageResponseDTO.createMessageResponse("Aluno, matricula: "+ matricula  +", criado com sucesso");
     }
 
     public MessageResponseDTO modificar(Long id, Aluno aluno) throws NotFoundException {
@@ -39,13 +40,13 @@ public class AlunoService {
         aluno.setNotas(alunoBanco.get().getNotas());
         aluno.setId(id);
         aluno.setMatricula(alunoBanco.get().getMatricula());
-        return MessageResponseDTO.createMessageResponse(alunoRepository.save(aluno).getId(), "Usuário alterado com sucesso");
+        return MessageResponseDTO.createMessageResponse( "Aluno alterado com sucesso, matricula: " + alunoRepository.save(aluno).getId());
     }
 
     public MessageResponseDTO apagar(Long id) throws NotFoundException {
         existeId(id);
         alunoRepository.deleteById(id);
-        return MessageResponseDTO.createMessageResponse(id, "Usuário excluído com sucesso");
+        return MessageResponseDTO.createMessageResponse("Aluno, matricula: "+ id +", excluído com sucesso");
     }
 
     public Optional<Aluno> buscarId(Long id) throws NotFoundException {
@@ -74,7 +75,7 @@ public class AlunoService {
         aluno.getCursos().add(curso);
 
         alunoRepository.save(aluno);
-        return MessageResponseDTO.createMessageResponse(0l, "Curso adicionado com sucesso");
+        return MessageResponseDTO.createMessageResponse("Curso adicionado com sucesso");
     }
 
     public MessageResponseDTO apagarAlunoCurso (Long idAluno, Long idCurso) throws NotFoundException{
@@ -86,13 +87,13 @@ public class AlunoService {
         aluno.getCursos().clear();
 
         alunoRepository.save(aluno);
-        return MessageResponseDTO.createMessageResponse(0l, "Curso apagado com sucesso");
+        return MessageResponseDTO.createMessageResponse("Curso excluído de aluno com sucesso");
     }
 
 
     public void existeId(Long id) throws NotFoundException {
         if (!alunoRepository.existsById(id))
-            throw new NotFoundException("Usuário não localizado");
+            throw new NotFoundException("Aluno não localizado");
     }
 
     private Long gerarMatricula() {

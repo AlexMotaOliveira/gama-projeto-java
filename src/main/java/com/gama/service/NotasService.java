@@ -42,7 +42,7 @@ public class NotasService {
         Long idNotas = notasRepository.saveAndFlush(notas).getId();
         notasRepository.inserirRelacionamento(idAluno, idNotas);
 
-        return MessageResponseDTO.createMessageResponse(idAluno, "Nota Adicionada");
+        return MessageResponseDTO.createMessageResponse("Nota Adicionada");
     }
 
 
@@ -56,7 +56,7 @@ public class NotasService {
             if (notas1.getTipoNota().equals(notas.getTipoNota())) {
                 notas.setId(notas1.getId());
                 notasRepository.saveAndFlush(notas);
-                return MessageResponseDTO.createMessageResponse(idAluno, "Nota Modificada");
+                return MessageResponseDTO.createMessageResponse("Nota Modificada");
             }
         }
         throw new NotFoundException("Nota não localizada para alteração");
@@ -72,7 +72,7 @@ public class NotasService {
             if (notas1.getTipoNota().equals(notas.getTipoNota())) {
                 notasRepository.excluirRelacionamentoNotasDisciplinas(idAluno, notas1.getId());
                 notasRepository.deleteById(notas1.getId());
-                return MessageResponseDTO.createMessageResponse(idAluno, "Nota excluída");
+                return MessageResponseDTO.createMessageResponse("Nota excluída");
             }
         }
         throw new NotFoundException("Nota não localizada para exclusão");

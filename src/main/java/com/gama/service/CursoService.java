@@ -22,7 +22,7 @@ public class CursoService {
 
     public MessageResponseDTO salvarCurso(Curso curso) throws DuplicateException {
         existeCurso(curso.getCodigo());
-        return MessageResponseDTO.createMessageResponse(cursoRepository.save(curso).getId(), "Curso salvo com sucesso!");
+        return MessageResponseDTO.createMessageResponse("Curso salvo com sucesso!, código: " + cursoRepository.save(curso).getCodigo());
     }
 
     public MessageResponseDTO modificarCurso(Long id, Curso curso) throws NotFoundException, DuplicateException {
@@ -30,7 +30,7 @@ public class CursoService {
         Curso curso1 = buscarId(id).get();
         curso.getDisciplinas().addAll(curso1.getDisciplinas());
         curso.setId(id);
-        return MessageResponseDTO.createMessageResponse(cursoRepository.save(curso).getId(), "Curso alterado com sucesso!");
+        return MessageResponseDTO.createMessageResponse("Curso alterado com sucesso!, código: " + cursoRepository.save(curso).getCodigo());
     }
 
     public  List<Curso> buscarCursoPorIdAluno(Long id){

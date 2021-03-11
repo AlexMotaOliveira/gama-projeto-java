@@ -40,9 +40,9 @@ public class AlunoController {
 
     @ApiOperation(value = "Excluir um Aluno")
     @ApiResponses(value = {
-            @ApiResponse(code = 204, message = "Usuário excluído com sucesso"),
+            @ApiResponse(code = 204, message = "Aluno excluído com sucesso"),
             @ApiResponse(code = 400, message = "Falha nos dados enviados"),
-            @ApiResponse(code = 404, message = "Usuário não localizado"),
+            @ApiResponse(code = 404, message = "Aluno não localizado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -54,7 +54,7 @@ public class AlunoController {
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Aluno modificado com sucesso"),
             @ApiResponse(code = 400, message = "Falha nos dados enviados"),
-            @ApiResponse(code = 404, message = "Usuário não localizado"),
+            @ApiResponse(code = 404, message = "Aluno não localizado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema")})
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -65,7 +65,7 @@ public class AlunoController {
     @ApiOperation(value = "Buscar um Aluno")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Buscar um Aluno"),
-            @ApiResponse(code = 404, message = "Usuário não localizado"),
+            @ApiResponse(code = 404, message = "Aluno não localizado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
     @GetMapping({"/{id}"})
     public Optional<Aluno> buscarAlunoId(@PathVariable Long id) throws NotFoundException {
@@ -85,7 +85,7 @@ public class AlunoController {
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Cadastrato com sucesso"),
             @ApiResponse(code = 400, message = "Falha nos dados enviados"),
-            @ApiResponse(code = 404, message = "Usuário/Curso não localizado"),
+            @ApiResponse(code = 404, message = "Aluno/Curso não localizado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
     @PostMapping({"/{idAluno}/curso/{idCurso}"})
     @ResponseStatus(HttpStatus.CREATED)
@@ -98,7 +98,7 @@ public class AlunoController {
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "Curso excluído com sucesso"),
             @ApiResponse(code = 400, message = "Falha nos dados enviados"),
-            @ApiResponse(code = 404, message = "Usuário/Curso não localizado"),
+            @ApiResponse(code = 404, message = "Aluno/Curso não localizado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
     @DeleteMapping({"/{idAluno}/curso/{idCurso}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -110,7 +110,7 @@ public class AlunoController {
     @ApiOperation(value = "Buscar um Aluno")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Buscar um Aluno"),
-            @ApiResponse(code = 404, message = "Usuário não localizado"),
+            @ApiResponse(code = 404, message = "Aluno não localizado"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção, contate o administrator do sistema"),})
     @GetMapping({"/matricula/{matricula}"})
     public Optional<Aluno> buscarAlunoMatricula(@PathVariable Long matricula) throws NotFoundException {
